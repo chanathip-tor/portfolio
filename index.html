@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chanathip Aoibumrung — Data & AI Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f3;
+      --bg-info: #E6F1FB;
+      --text-primary: #1a1a1a;
+      --text-secondary: #555555;
+      --text-tertiary: #888888;
+      --text-info: #185FA5;
+      --border: rgba(0,0,0,0.10);
+      --border-md: rgba(0,0,0,0.18);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a1a;
+        --bg-secondary: #242424;
+        --bg-info: #0c2a44;
+        --text-primary: #f0f0f0;
+        --text-secondary: #aaaaaa;
+        --text-tertiary: #666666;
+        --text-info: #85B7EB;
+        --border: rgba(255,255,255,0.10);
+        --border-md: rgba(255,255,255,0.18);
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg);
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .nav-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+    .nav-logo { font-size: 14px; font-weight: 500; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* LAYOUT */
+    .site { max-width: 800px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .avatar {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: var(--bg-info);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 500;
+      color: var(--text-info);
+      margin: 0 auto 1.25rem;
+      border: 0.5px solid var(--border-md);
+    }
+    .hero h1 { font-size: 28px; font-weight: 500; margin-bottom: 4px; }
+    .hero .nick { font-size: 14px; color: var(--text-secondary); margin-bottom: 1rem; }
+    .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .badge {
+      font-size: 12px; padding: 4px 14px;
+      border-radius: 99px;
+      background: var(--bg-secondary);
+      border: 0.5px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .badge.blue { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
+    .badge.teal { background: #E1F5EE; color: #085041; border-color: #9FE1CB; }
+    @media (prefers-color-scheme: dark) {
+      .badge.blue { background: #0c2a44; color: #85B7EB; border-color: #185FA5; }
+      .badge.teal { background: #04342C; color: #5DCAA5; border-color: #0F6E56; }
+    }
+    .hero-summary {
+      font-size: 14px; color: var(--text-secondary);
+      line-height: 1.8; max-width: 540px; margin: 0 auto 1.5rem;
+    }
+    .contact-links { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+    .contact-links a {
+      font-size: 13px; color: var(--text-info);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .contact-links a:hover { text-decoration: underline; }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 3rem;
+    }
+    @media (max-width: 500px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .stat {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
+    }
+    .stat .num { font-size: 22px; font-weight: 500; }
+    .stat .lbl { font-size: 11px; color: var(--text-secondary); margin-top: 3px; }
+
+    /* SECTIONS */
+    section { margin-bottom: 3rem; }
+    .section-title {
+      font-size: 11px; font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 8px;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    /* EXPERIENCE */
+    .exp-item { padding: 1.25rem 0; border-bottom: 0.5px solid var(--border); }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 3px; }
+    .exp-title { font-size: 14px; font-weight: 500; }
+    .exp-period { font-size: 12px; color: var(--text-tertiary); white-space: nowrap; flex-shrink: 0; }
+    .exp-company { font-size: 13px; color: var(--text-info); margin-bottom: 10px; }
+    .exp-bullets { list-style: none; padding: 0; }
+    .exp-bullets li {
+      font-size: 13px; color: var(--text-secondary);
+      line-height: 1.65; padding: 2px 0 2px 16px;
+      position: relative;
+    }
+    .exp-bullets li::before { content: "·"; position: absolute; left: 5px; color: var(--text-tertiary); }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .skill-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+    }
+    .skill-cat {
+      font-size: 11px; font-weight: 500;
+      color: var(--text-tertiary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .skill-tag {
+      font-size: 11px; padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+    }
+
+    /* EDUCATION */
+    .edu-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem;
+    }
+    .edu-deg { font-size: 15px; font-weight: 500; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .edu-honors {
+      font-size: 11px;
+      background: #E1F5EE; color: #085041;
+      border: 0.5px solid #9FE1CB;
+      border-radius: 99px; padding: 2px 10px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .edu-honors { background: #04342C; color: #5DCAA5; border-color: #0F6E56; }
+    }
+    .edu-school { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+    .edu-courses { font-size: 12px; color: var(--text-tertiary); line-height: 1.7; }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--border);
+      padding: 2rem 0 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Chanathip Aoibumrung</a>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+  </div>
+</nav>
+
+<div class="site">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="avatar">CA</div>
+    <h1>Chanathip Aoibumrung</h1>
+    <div class="nick">Tor &nbsp;·&nbsp; Bangkok, Thailand</div>
+    <div class="badges">
+      <span class="badge blue">Data Engineer</span>
+      <span class="badge teal">AI Engineer</span>
+      <span class="badge">Applied Mathematics</span>
+    </div>
+    <p class="hero-summary">
+      Experienced in data engineering and AI development with a strong foundation in Applied Mathematics.
+      Building data-driven solutions across the full spectrum — from infrastructure and pipelines
+      to AI model development and deployment. Passionate about continuous growth and excited by new technologies.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:chanathipa.tor@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M1 5l7 5 7-5"/></svg>
+        chanathipa.tor@gmail.com
+      </a>
+      <a href="tel:+66954916564">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 2h3l1.5 3.5-2 1.5c1 2 2.5 3.5 4.5 4.5L11.5 9.5 15 11v3c0 1-1 2-2 2C5 15 1 9 1 4c0-1 1-2 2-2z"/></svg>
+        (66+) 95-491-6564
+      </a>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><div class="num">6+</div><div class="lbl">Years experience</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">Domains</div></div>
+    <div class="stat"><div class="num">1st</div><div class="lbl">Class honors</div></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-title">Experience</div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">Data Engineer</span>
+        <span class="exp-period">Mar 2026 – Present</span>
+      </div>
+      <div class="exp-company">Freelance</div>
+      <ul class="exp-bullets">
+        <li>Contributed to a cloud data migration project on GCP, ingesting data from diverse sources including Kafka, APIs, and SFTP.</li>
+        <li>Built and maintained data pipelines across multiple GCP services — Cloud Run, Dataflow, Dataform, and BigLake Metastore — to ensure reliable and scalable data flow.</li>
+        <li>Enabled downstream data consumption through BigQuery and Vertex AI to support analytics and ML workloads.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">AI Engineer</span>
+        <span class="exp-period">Nov 2024 – Feb 2025</span>
+      </div>
+      <div class="exp-company">Freelance</div>
+      <ul class="exp-bullets">
+        <li>Refactored AI application architecture from monolith to microservices, improving system scalability and maintainability.</li>
+        <li>Built AI endpoint inference pipelines to generate diverse content formats including video, infographics, artifact canvas, and slide decks.</li>
+        <li>Implemented an AI agent router within an AI chatbot application to optimize token usage, reduce operational cost, and improve response quality.</li>
+        <li>Produced AI-generated video content for advertising campaigns and educational materials.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">AI Engineer</span>
+        <span class="exp-period">Oct 2023 – Dec 2024</span>
+      </div>
+      <div class="exp-company">True Internet Data Center</div>
+      <ul class="exp-bullets">
+        <li>Developed business-oriented AI Assistant systems integrated with both open-source and proprietary LLMs, utilizing local GPU-accelerated models and Kubernetes for efficient container orchestration.</li>
+        <li>Built multi-agent workflows using LangChain and LangGraph to automate complex reasoning and task execution pipelines.</li>
+        <li>Implemented GraphRAG to enhance LLM knowledge retrieval and contextual accuracy for advanced AI Assistant capabilities.</li>
+        <li>Developed a POC OCR pipeline to extract insights from unstructured data (PDFs, images), including fine-tuning OCR models for Thai language to improve text recognition accuracy.</li>
+        <li>Conducted comprehensive AI model performance benchmarking to provide data-driven recommendations for technology procurement.</li>
+        <li>Deployed and managed AI systems on Amazon Bedrock, enabling scalable production-ready LLM applications on cloud infrastructure.</li>
+        <li>Managed customer API traffic via Kong Konnect API Gateway and delivered API services for a ticketing system built with Golang.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">Data Engineer</span>
+        <span class="exp-period">Jan 2024 – Oct 2024</span>
+      </div>
+      <div class="exp-company">AIS</div>
+      <ul class="exp-bullets">
+        <li>Contributed to provisioning cloud infrastructure using Terraform, and analyzed large-scale trajectory, footfall, and geolocation data on Databricks to uncover customer behavior insights.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">Data Engineer</span>
+        <span class="exp-period">May 2020 – May 2023</span>
+      </div>
+      <div class="exp-company">BTS Group Holdings (BTSG)</div>
+      <ul class="exp-bullets">
+        <li>Built data ingestion and data pipelines into data platform, enabling reliable data flow from multiple sources for downstream analytics and reporting.</li>
+        <li>Contributed to migrating data infrastructure from on-premise to AWS, ensuring seamless data transition and improved scalability for the organization.</li>
+        <li>Contributed to a Credit Scoring project — performing EDA and Customer Segmentation to uncover customer insights, and building an ML model like XGBoost to predict customer default risk.</li>
+        <li>Built interactive Tableau monitoring dashboards with automated reporting to surface insights for business stakeholders.</li>
+        <li>Delivered a CDP pipeline implementation that enabled personalized, real-time marketing capabilities across customer touchpoints.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">Intern – Data Engineer</span>
+        <span class="exp-period">Jun 2019 – Nov 2019</span>
+      </div>
+      <div class="exp-company">Yip In Tsoi</div>
+      <ul class="exp-bullets">
+        <li>Implemented ETL pipelines using Informatica PowerCenter to process and transform retail business datasets for downstream reporting and analytics.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-title">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-cat">AI & ML</div>
+        <div class="skill-tags">
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LangGraph</span>
+          <span class="skill-tag">GraphRAG</span>
+          <span class="skill-tag">LLMs</span>
+          <span class="skill-tag">Amazon Bedrock</span>
+          <span class="skill-tag">OCR</span>
+          <span class="skill-tag">XGBoost</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Data Engineering</div>
+        <div class="skill-tags">
+          <span class="skill-tag">BigQuery</span>
+          <span class="skill-tag">Dataflow</span>
+          <span class="skill-tag">Dataform</span>
+          <span class="skill-tag">Databricks</span>
+          <span class="skill-tag">Kafka</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Informatica</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Cloud & Infra</div>
+        <div class="skill-tags">
+          <span class="skill-tag">GCP</span>
+          <span class="skill-tag">AWS</span>
+          <span class="skill-tag">Kubernetes</span>
+          <span class="skill-tag">Cloud Run</span>
+          <span class="skill-tag">Terraform</span>
+          <span class="skill-tag">Docker</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Backend & APIs</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Golang</span>
+          <span class="skill-tag">Kong Konnect</span>
+          <span class="skill-tag">REST APIs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-title">Education</div>
+    <div class="edu-card">
+      <div class="edu-deg">
+        B.Sc. Applied Mathematics
+        <span class="edu-honors">First Class Honors</span>
+      </div>
+      <div class="edu-school">King Mongkut's Institute of Technology Ladkrabang &nbsp;·&nbsp; 2017 – 2020</div>
+      <div class="edu-courses">
+        Probability & Statistics &nbsp;·&nbsp; Machine Learning &nbsp;·&nbsp; Optimization &nbsp;·&nbsp;
+        Algorithms &nbsp;·&nbsp; Numerical Methods &nbsp;·&nbsp; Computer Programming
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Chanathip Aoibumrung &nbsp;·&nbsp; Bangkok, Thailand &nbsp;·&nbsp; 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>
